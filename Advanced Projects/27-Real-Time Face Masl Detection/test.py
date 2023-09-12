@@ -1,5 +1,20 @@
 import cv2
 import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dropout, Dense
+cnn = Sequential([Conv2D(filters=100, kernel_size=(3,3),
+                         activation='relu'),
+                         Conv2D(filters=100, kernel_size=(3,3),
+                                activation='relu'),
+                         MaxPooling2D(pool_size=(2,2)),
+                         Flatten(),
+                         Dropout(0.5),
+                         Dense(50),
+                         Dense(35),
+                         Dense(2)])
+cnn.compile(optimizer='adam',loss='binary_crossentropy', metrics=['acc'])
+
+
 labels_dict = {0:'No mask',1:'Mask'}
 color_dict={0:(0,0,255),1:(0,255,0)}
 imgsize = 4 #set image resize
